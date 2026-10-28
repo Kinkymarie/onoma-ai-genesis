@@ -304,6 +304,13 @@ onoma-ai-genesis/
 
 Onoma AI Genesis is currently an architecture-led software initiative under active development.
 
+The repository includes a FastAPI MVP in `backend/`, a PostgreSQL and Prisma
+database foundation in `database/` and `prisma/`, and a Next.js dashboard in
+`frontend/`. The frontend reads the MVP's health, projects, agents, and memory
+endpoints; authentication, writes, and the remaining product routes are future
+work. See `backend/README.md`, `docs/DATABASE.md`, and `frontend/README.md` for
+local setup and current implementation boundaries.
+
 Some components described in this repository may be:
 
 * Implemented
