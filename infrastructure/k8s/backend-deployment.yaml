@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: backend}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: backend}}
+  template:
+    metadata: {labels: {app: backend}}
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/kinkymarie/onoma-ai-genesis:latest
+          ports: [{containerPort: 8000}]
+          envFrom:
+            - configMapRef: {name: onoma-config}
+            - secretRef: {name: onoma-secrets}
+          readinessProbe: {httpGet: {path: /api/health/db, port: 8000}}
+          livenessProbe: {httpGet: {path: /api/health, port: 8000}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: backend}
+spec:
+  selector: {app: backend}
+  ports: [{port: 80, targetPort: 8000}]

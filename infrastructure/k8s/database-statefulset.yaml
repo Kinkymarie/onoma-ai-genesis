@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: {name: postgres}
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector: {matchLabels: {app: postgres}}
+  template:
+    metadata: {labels: {app: postgres}}
+    spec:
+      containers:
+        - name: postgres
+          image: pgvector/pgvector:pg16
+          env:
+            - {name: POSTGRES_USER, value: onoma}
+            - {name: POSTGRES_DB, value: onoma}
+            - name: POSTGRES_PASSWORD
+              valueFrom: {secretKeyRef: {name: onoma-secrets, key: POSTGRES_PASSWORD}}
+          ports: [{containerPort: 5432}]
+          volumeMounts: [{name: data, mountPath: /var/lib/postgresql/data}]
+  volumeClaimTemplates:
+    - metadata: {name: data}
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources: {requests: {storage: 20Gi}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: postgres}
+spec:
+  clusterIP: None
+  selector: {app: postgres}
+  ports: [{port: 5432}]
