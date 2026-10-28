@@ -26,6 +26,12 @@ class DatabaseSchemaTests(unittest.TestCase):
         self.assertEqual(PRISMA.count('Unsupported("vector(1536)")'), 2)
         self.assertIn("extensions = [vector]", PRISMA)
 
+    def test_authentication_and_integration_secrets_are_opaque(self):
+        self.assertIn("two_factor_secret bytea", SCHEMA)
+        self.assertIn("encrypted_credentials bytea NOT NULL", SCHEMA)
+        self.assertIn("twoFactorSecret    Bytes?", PRISMA)
+        self.assertIn("encryptedCredentials Bytes", PRISMA)
+
     def test_initial_migration_applies_canonical_schema(self):
         migration = (ROOT / "database" / "migrations" / "001_initial.sql").read_text()
         self.assertIn(r"\set ON_ERROR_STOP on", migration)

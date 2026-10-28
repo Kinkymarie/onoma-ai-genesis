@@ -25,6 +25,10 @@ or pgvector indexes, so those remain in the SQL migration. The two embedding
 fields are represented as `Unsupported("vector(1536)")` and need raw SQL for
 vector operations.
 
+The 2FA seed and integration credentials are opaque `bytea`/`Bytes` values.
+Encrypt them with an application-managed key before persistence; do not store
+plaintext secrets in these fields.
+
 ## Current runtime boundary
 
 The included FastAPI MVP currently persists projects, memories, documents, and

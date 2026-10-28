@@ -50,7 +50,7 @@ $('#uploadFile').onclick=async()=>{
 $('#runSearch').onclick=async()=>{
   const query=$('#searchInput').value.trim(); if(!query)return;
   const rows=await api('/api/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,limit:20})});
-  $('#searchResults').innerHTML=rows.length?rows.map(r=>`<div class="result"><strong>${escapeHtml(r.name)}</strong><p>${r.snippet}</p><small>Project ${r.project_id ?? 'global'}</small></div>`).join(''):'<p>No evidence found.</p>';
+  $('#searchResults').innerHTML=rows.length?rows.map(r=>`<div class="result"><strong>${escapeHtml(r.name)}</strong><p>${escapeHtml(r.snippet)}</p><small>Project ${r.project_id ?? 'global'}</small></div>`).join(''):'<p>No evidence found.</p>';
 };
 $('#sendChat').onclick=async()=>{
   const message=$('#chatInput').value.trim(); if(!message)return;

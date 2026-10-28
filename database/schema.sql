@@ -21,7 +21,7 @@ CREATE TABLE users (
     display_name text NOT NULL,
     status user_status NOT NULL DEFAULT 'ACTIVE',
     email_verified_at timestamptz,
-    two_factor_secret text,
+    two_factor_secret bytea,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),
     deleted_at timestamptz
@@ -285,7 +285,7 @@ CREATE TABLE integrations (
     organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
     provider text NOT NULL,
     status integration_status NOT NULL DEFAULT 'PENDING',
-    credentials jsonb NOT NULL DEFAULT '{}'::jsonb,
+    encrypted_credentials bytea NOT NULL,
     configuration jsonb NOT NULL DEFAULT '{}'::jsonb,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),

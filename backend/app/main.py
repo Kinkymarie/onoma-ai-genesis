@@ -82,7 +82,7 @@ async def upload_document(
     file: UploadFile = File(...),
     project_id: int | None = Form(default=None),
 ) -> dict[str, Any]:
-    raw = await file.read()
+    raw = await file.read(5_000_001)
     if len(raw) > 5_000_000:
         raise HTTPException(status_code=413, detail="File exceeds 5 MB MVP limit")
     try:

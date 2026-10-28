@@ -76,7 +76,7 @@ class SearchService:
         with get_db() as db:
             sql = """
                 SELECT d.id, d.project_id, d.name, d.media_type,
-                       snippet(documents_fts, 1, '<mark>', '</mark>', ' … ', 24) AS snippet,
+                       snippet(documents_fts, 1, '', '', ' … ', 24) AS snippet,
                        bm25(documents_fts) AS score
                 FROM documents_fts
                 JOIN documents d ON d.id = documents_fts.rowid

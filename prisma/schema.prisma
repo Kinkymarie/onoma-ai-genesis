@@ -127,7 +127,7 @@ model User {
   displayName        String               @map("display_name")
   status             UserStatus           @default(ACTIVE)
   emailVerifiedAt    DateTime?            @map("email_verified_at") @db.Timestamptz(6)
-  twoFactorSecret    String?              @map("two_factor_secret")
+  twoFactorSecret    Bytes?                @map("two_factor_secret")
   createdAt          DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt          DateTime             @default(now()) @map("updated_at") @db.Timestamptz(6)
   deletedAt          DateTime?            @map("deleted_at") @db.Timestamptz(6)
@@ -537,7 +537,7 @@ model Integration {
   organizationId String            @map("organization_id") @db.Uuid
   provider       String
   status         IntegrationStatus @default(PENDING)
-  credentials    Json              @default("{}")
+  encryptedCredentials Bytes       @map("encrypted_credentials")
   configuration  Json              @default("{}")
   createdAt      DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt      DateTime          @default(now()) @map("updated_at") @db.Timestamptz(6)

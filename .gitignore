@@ -1,0 +1,9 @@
+**/__pycache__/
+*.py[cod]
+backend/data/
+.venv/
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
