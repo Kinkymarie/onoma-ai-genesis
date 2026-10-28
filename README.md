@@ -514,3 +514,12 @@ meganboswell
 
 Project:
 Onoma AI Genesis
+
+
+---
+
+## Development
+
+- Backend (FastAPI + SQLAlchemy/PostgreSQL): see `backend/`. Run tests with `cd backend && pip install -r requirements.txt && pytest`.
+- Frontend (Next.js 14 + TypeScript): see `frontend/`.
+- Deployment: see `docs/DEPLOYMENT.md`, `docs/MONITORING.md`, `docs/BACKUP.md`.

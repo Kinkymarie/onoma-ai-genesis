@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: onoma
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-onoma}
+      POSTGRES_DB: onoma
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U onoma"]
+      interval: 5s
+      retries: 10
+  redis:
+    image: redis:7-alpine
+  backend:
+    build: .
+    env_file: backend/.env.example
+    environment:
+      DATABASE_URL: postgresql+psycopg2://onoma:${POSTGRES_PASSWORD:-onoma}@postgres:5432/onoma
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+volumes:
+  pgdata:

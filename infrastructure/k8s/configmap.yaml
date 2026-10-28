@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: onoma-config}
+data:
+  APP_ENV: production
+  REDIS_URL: redis://redis:6379/0
+  CORS_ORIGINS: https://app.example.com
