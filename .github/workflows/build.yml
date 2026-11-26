@@ -15,4 +15,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest,ghcr.io/${{ github.repository }}:${{ github.sha }}
+          tags: ghcr.io/kinkymarie/onoma-ai-genesis:latest,ghcr.io/kinkymarie/onoma-ai-genesis:${{ github.sha }}
